@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+    ss: 
+        build:
+            context: ./shadowsocks-server
+            args:
+                # your server's ip address or domain
+                - SERVER=
+                # your shadowsocks password
+                - PASSWORD=
+                # your shadowsocks port
+                - PORT=8388

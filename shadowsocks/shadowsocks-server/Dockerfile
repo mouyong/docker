@@ -3,12 +3,12 @@ MAINTAINER 牟勇 <my24251325@gmail.com>
 
 RUN sed -i 's/archive.ubuntu/mirrors.aliyun/' /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y --no-install-recommends python-pip
+RUN apt-get update && apt-get install -y --no-install-recommends python-pip && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clien
 
 RUN pip install setuptools 
 RUN pip install shadowsocks
-
-#ADD ss.json /
 
 ARG SERVER=0.0.0.0
 ARG PASSWORD=password

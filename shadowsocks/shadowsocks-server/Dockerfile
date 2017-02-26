@@ -10,14 +10,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends python-pip && \
 RUN pip install setuptools 
 RUN pip install shadowsocks
 
-ARG SERVER=0.0.0.0
 ARG PASSWORD=password
 ARG PORT=8388
 
 EXPOSE ${PORT}
 
 RUN echo "{ \
-    \"server\":\"${SERVER}\", \
+    \"server\":\"0.0.0.0\", \
     \"port_password\": { \
         \"${PORT}\": \"${PASSWORD}\" \
     }, \
@@ -26,6 +25,4 @@ RUN echo "{ \
     \"fast_open\": false \
 }" > /ss.json
 
-ENTRYPOINT ["ssserver", "-c", "/ss.json"]
-
-CMD ["bash"]
+CMD ["ssserver", "-c", "/ss.json"]

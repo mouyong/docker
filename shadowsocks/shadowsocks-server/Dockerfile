@@ -1,8 +1,6 @@
 FROM ubuntu:17.04
 MAINTAINER 牟勇 <my24251325@gmail.com>
 
-RUN sed -i 's/archive.ubuntu/mirrors.aliyun/' /etc/apt/sources.list
-
 RUN apt-get update && apt-get install -y --no-install-recommends python-pip && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clien

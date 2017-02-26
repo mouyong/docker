@@ -3,7 +3,7 @@ MAINTAINER 牟勇 <my24251325@gmail.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends python-pip && \
     rm -rf /var/lib/apt/lists/* && \
-    apt-get clien
+    apt-get clean
 
 RUN pip install setuptools 
 RUN pip install shadowsocks

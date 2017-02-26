@@ -1,12 +1,12 @@
-FROM ubuntu:17.04
-MAINTAINER 牟勇 <my24251325@gmail.com>
+FROM ubuntu
 
-RUN apt-get update && apt-get install -y --no-install-recommends python-pip && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get clean
+RUN apt-get update && apt-get install -y \
+    --no-install-recommends \
+    python-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN pip install setuptools 
-RUN pip install shadowsocks
+RUN pip install setuptools && pip install shadowsocks
 
 ARG PASSWORD=password
 ARG PORT=8388

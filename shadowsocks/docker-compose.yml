@@ -3,7 +3,7 @@ version: '3'
 services:
     ss: 
         build:
-            context: ./shadowsocks-server
+            context: ./shadowsocks
             args:
                 # your shadowsocks password
                 - PASSWORD=
@@ -11,3 +11,8 @@ services:
                 - PORT=8388
         ports:
             - "8388:8388"
+            - "1080:1080"
+        # if you run it in server
+        command: "ssserver -c /ss.json"
+        # if you run it in client
+        #command: "sslocal -s you.server.ip.address -k password"

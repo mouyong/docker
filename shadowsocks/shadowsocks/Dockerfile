@@ -23,4 +23,3 @@ RUN echo "{ \
     \"fast_open\": false \
 }" > /ss.json
 
-CMD ["ssserver", "-c", "/ss.json"]

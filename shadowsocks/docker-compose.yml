@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
     ss: 
@@ -11,7 +11,8 @@ services:
                 - PORT=8388
         ports:
             - "8388:8388"
-            - "1080:1080"
+        # if you choise sslocal command, you need open next line
+        #    - "1080:1080"
         # if you run it in server
         command: "ssserver -c /ss.json"
         # if you run it in client

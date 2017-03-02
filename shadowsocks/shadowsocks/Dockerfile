@@ -11,8 +11,6 @@ RUN pip install setuptools && pip install shadowsocks
 ARG PASSWORD=password
 ARG PORT=8388
 
-EXPOSE ${PORT}
-
 RUN echo "{ \
     \"server\":\"0.0.0.0\", \
     \"port_password\": { \

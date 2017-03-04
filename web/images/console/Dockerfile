@@ -20,12 +20,16 @@ ARG GIT_EMAIL=git_email
 RUN git config --global user.name "${GIT_NAME}" \
  && git config --global user.email "${GIT_EMAIL}"
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
- && php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
- && php composer-setup.php \
- && php -r "unlink('composer-setup.php');" \
- && mv composer.phar /usr/local/bin/composer \
- && echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
+#RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+# && php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+# && php composer-setup.php \
+# && php -r "unlink('composer-setup.php');" \
+# && mv composer.phar /usr/local/bin/composer
+
+COPY composer /usr/local/bin/
+
+
+RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
  && . ~/.bashrc \
  && composer config -g repo.packagist composer https://packagist.phpcomposer.com
  

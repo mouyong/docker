@@ -6,8 +6,8 @@ services:
         build: 
             context: ./images/console
             args:
-                - GIT_NAME=you_git_name
-                - GIT_EMAIL=you_git_email
+                - GIT_NAME=mouyong
+                - GIT_EMAIL=my24251325@gmail.com
         volumes_from:
             - php-fpm
             - nginx
@@ -34,7 +34,7 @@ services:
         volumes_from:
             - php-fpm
         volumes:
-            - ./log/nginx/:/var/log/nginx/
+            - ./logs/nginx/:/var/log/nginx/
             - ./images/nginx/sites:/etc/nginx/conf.d/
         links: 
             - php-fpm

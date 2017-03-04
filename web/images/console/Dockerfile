@@ -31,7 +31,8 @@ RUN chmod +x /usr/local/bin/composer
 
 RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
  && . ~/.bashrc \
- && composer config -g repo.packagist composer https://packagist.phpcomposer.com
+ && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
+ && composer self-update
  
 
 # redis

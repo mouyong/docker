@@ -26,8 +26,8 @@ RUN git config --global user.name "${GIT_NAME}" \
 # && php -r "unlink('composer-setup.php');" \
 # && mv composer.phar /usr/local/bin/composer
 
-COPY composer /usr/local/bin/
-
+ADD composer /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
 
 RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
  && . ~/.bashrc \

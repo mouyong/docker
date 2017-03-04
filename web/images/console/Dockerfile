@@ -53,7 +53,7 @@ RUN wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL" \
 #	yarn \
 # && yarn config set registry 'https://registry.npm.taobao.org' 
 
-RUN usermod -u 1000 -s /bin/bash -d /home/www-data www-data \
+RUN usermod -u 1000 -s /bin/bash -G sudo,www-data -d /home/www-data www-data \
  && mkdir /home/www-data \
  && chown -R www-data:www-data /home/www-data
 

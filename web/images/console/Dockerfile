@@ -14,11 +14,6 @@ RUN apt-get update && apt-get install -y \
     wget \
     sudo 
 
-ARG GIT_NAME=git_name
-ARG GIT_EMAIL=git_email
-
-RUN git config --global user.name "${GIT_NAME}" \
- && git config --global user.email "${GIT_EMAIL}"
 
 #RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # && php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
@@ -58,11 +53,17 @@ RUN wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL" \
 #	yarn \
 # && yarn config set registry 'https://registry.npm.taobao.org' 
 
+ARG USERPASS=www-data
+
 RUN usermod -u 1000 -s /bin/bash -G sudo,www-data -d /home/www-data www-data \
  && mkdir /home/www-data \
- && chown -R www-data:www-data /home/www-data
+ && chown -R www-data:www-data /home/www-data \
+ && echo www-data:${USERPASS} | chpasswd
 
 USER www-data
+
+ARG GIT_NAME=git_name
+ARG GIT_EMAIL=git_email
 
 RUN echo 'alias redis-cli="redis-cli -h redis"' >> ~/.bashrc \
  && . ~/.bashrc \

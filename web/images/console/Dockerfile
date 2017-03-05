@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     vim \
     wget \
-    sudo 
+    sudo \
+    zip
 
 
 #RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -60,7 +61,8 @@ USER www-data
 RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
  && . ~/.bashrc \
  && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
- && composer self-update
+ && composer self-update \
+ && composer global require laravel/laravel
 
 
 ARG GIT_NAME=git_name

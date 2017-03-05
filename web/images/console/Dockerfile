@@ -24,12 +24,6 @@ RUN apt-get update && apt-get install -y \
 ADD composer /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
-RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
- && . ~/.bashrc \
- && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
- && composer self-update
- 
-
 # redis
 ENV REDIS_VERSION 3.2.8
 ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
@@ -61,6 +55,13 @@ RUN usermod -u 1000 -s /bin/bash -G sudo,www-data -d /home/www-data www-data \
  && echo www-data:${USERPASS} | chpasswd
 
 USER www-data
+
+
+RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
+ && . ~/.bashrc \
+ && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
+ && composer self-update
+
 
 ARG GIT_NAME=git_name
 ARG GIT_EMAIL=git_email

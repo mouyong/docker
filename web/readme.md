@@ -61,11 +61,13 @@
 #### 1. 进入 console 容器 
 `docker-compose exec console bash`
 
-#### 2. `composer create-project --prefer-dist laravel/laravel 项目名`
+#### 2. `composer create-project --prefer-dist laravel/laravel 项目名` or `laravel new blog`
 
 例如:
 创建一个博客项目
 `composer create-project --prefer-dist laravel/laravel blog`
+or
+`laravel new blog`
 
 #### 3. 进入项目
 `cd 项目名`

@@ -3,7 +3,6 @@ FROM php:7
 RUN sed -i 's/deb\.debian\.org/mirrors.aliyun.com/' /etc/apt/sources.list && sed -i 's/security\.debian\.org/mirrors.aliyun.com\/debian-security/' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \ 
-	--no-install-recommends \
 	software-properties-common \
 	apt-transport-https \
 	ca-certificates \
@@ -57,12 +56,10 @@ RUN usermod -u 1000 -s /bin/bash -G sudo,www-data -d /home/www-data www-data \
 
 USER www-data
 
-
 RUN echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc \
  && . ~/.bashrc \
  && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
- && composer self-update \
- && composer global require laravel/laravel
+ && composer global require laravel/installer
 
 
 ARG GIT_NAME=git_name
@@ -72,5 +69,12 @@ RUN echo 'alias redis-cli="redis-cli -h redis"' >> ~/.bashrc \
  && . ~/.bashrc \
  && git config --global user.name "${GIT_NAME}" \
  && git config --global user.email "${GIT_EMAIL}"
+
+USER root
+
+RUN docker-php-ext-install -j$(nproc) \
+	zip
+
+USER www-data
 
 WORKDIR /var/www/

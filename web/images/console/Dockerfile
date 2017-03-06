@@ -39,14 +39,6 @@ RUN wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL" \
  && . ~/.bashrc
 
 
-#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-# && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-# && apt-get update \
-# && apt-get install -y \ 
-#	--no-install-recommends \
-#	yarn \
-# && yarn config set registry 'https://registry.npm.taobao.org' 
-
 ARG USERPASS=www-data
 
 RUN usermod -u 1000 -s /bin/bash -G sudo,www-data -d /home/www-data www-data \
@@ -74,6 +66,17 @@ USER root
 
 RUN docker-php-ext-install -j$(nproc) \
 	zip
+
+RUN apt-get install -y \
+	sqlite
+
+
+#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+# && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+# && apt-get update \
+# && apt-get install -y \ 
+#	yarn \
+# && yarn config set registry 'https://registry.npm.taobao.org' 
 
 USER www-data
 

@@ -12,7 +12,16 @@ RUN apt-get update && apt-get install -y \
     vim \
     wget \
     sudo \
-    zip
+    zip \
+    sqlite \
+    libjpeg62-turbo-dev \
+    libpng12-dev \
+ && docker-php-ext-configure gd \
+    --with-freetype-dir=/usr \
+    --with-jpeg-dir=/usr \
+ && docker-php-ext-install -j$(nproc) \
+    gd 
+
 
 
 #RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -63,13 +72,6 @@ RUN echo 'alias redis-cli="redis-cli -h redis"' >> ~/.bashrc \
  && git config --global user.email "${GIT_EMAIL}"
 
 USER root
-
-RUN docker-php-ext-install -j$(nproc) \
-	zip
-
-RUN apt-get install -y \
-	sqlite
-
 
 ARG INSTALL_YARN=false
 RUN if [ ${INSTALL_YARN} = true ]; then \
